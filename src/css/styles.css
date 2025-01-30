@@ -1,0 +1,88 @@
+html {
+  background: #bc48ff;
+  background: -webkit-radial-gradient(
+    circle,
+    #bc48ff 0%,
+    rgba(230, 16, 16, 0.57) 50%,
+    #3c0843 100%
+  );
+  background: radial-gradient(
+    circle,
+    #bc48ff 0%,
+    rgba(230, 16, 16, 0.57) 50%,
+    #3c0843 100%
+  );
+}
+
+body {
+  font-family: "Montserrat", sans-serif;
+  color: #141414;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin: 0;
+  cursor: default;
+}
+
+ul,
+ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+a {
+  color: currentColor;
+  text-decoration: none;
+}
+
+button {
+  padding: 0;
+  border: none;
+  cursor: pointer;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+.main-title {
+  text-align: center;
+  margin-top: 15px;
+}
+
+header {
+  position: relative;
+}
+
+.language-switcher {
+  position: absolute;
+  top: 20px;
+  right: 40px;
+  background-color: gray;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.container {
+  margin-top: 25px;
+}
+
+.go-page {
+  border: 1px solid #141414;
+  background-color: orangered;
+  padding: 10px 7px 10px 7px;
+  border-radius: 8px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
