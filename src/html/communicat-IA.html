@@ -13,11 +13,80 @@
     />
     <script defer type="module" src="/src/js/main.js"></script>
     <link rel="stylesheet" href="/src/css/styles.css" />
+    <link rel="stylesheet" href="/src/css/communicat-IA.css" />
   </head>
   <body>
-    <button class="go-back" type="button">
-      <a href="/index.html">Go-back</a>
-    </button>
-    <input type="text" name="" />
+    <header>
+      <button class="go-back" type="button">
+        <a href="/index.html">Go-back</a>
+      </button>
+    </header>
+    <main>
+      <div class="chat-container">
+        <div class="message-user">
+          <b>User</b>
+
+          <p>Lorem ipsum dolor sit amet.</p>
+
+          <div class="inner-message-svg">
+            <svg class="" width="15" height="15">
+              <use href="/src/img/icons.svg#icon-paste"></use>
+            </svg>
+
+            <svg class="" width="15" height="15">
+              <use href="/src/img/icons.svg#icon-volume"></use>
+            </svg>
+          </div>
+
+          <tt class="time-user">13:46</tt>
+        </div>
+
+        <div class="message-ia">
+          <b>IA</b>
+
+          <p>
+            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sit,
+            explicabo.
+          </p>
+
+          <div class="inner-message-svg">
+            <svg class="" width="15" height="15">
+              <use href="/src/img/icons.svg#icon-paste"></use>
+            </svg>
+
+            <svg class="" width="15" height="15">
+              <use href="/src/img/icons.svg#icon-volume"></use>
+            </svg>
+          </div>
+
+          <tt class="time-ia">13:47</tt>
+        </div>
+
+        <form class="user-form">
+          <input
+            class="user-message-inp js-user-message-inp"
+            type="text"
+            name="user-message"
+          />
+
+          <button class="user-talt-btn js-user-talt-btn" type="button">
+            <svg class="" width="15" height="15">
+              <use href="/src/img/icons.svg#icon-mic"></use>
+            </svg>
+          </button>
+
+          <button class="user-send-btn js-user-send-btn" type="submit">
+            <svg class="" width="15" height="15">
+              <use href="/src/img/icons.svg#icon-send"></use>
+            </svg>
+          </button>
+        </form>
+      </div>
+    </main>
+    <!-- axios -->
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.7.8/axios.min.js"
+      referrerpolicy="no-referrer"
+    ></script>
   </body>
 </html>
