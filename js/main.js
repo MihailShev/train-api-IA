@@ -1,19 +1,87 @@
-import { answerIA, requestUser } from "./render-functions.js";
+import { answer, talkUserMessage } from "./exports-functions.js";
 
+const apiKey = "";
 const chat = document.querySelector(".chat-container");
 const form = document.querySelector(".user-form");
+const inp = document.querySelector(".js-user-message-inp");
+const divElBtnForm = document.querySelector(".inner-form-svg");
+const divElBtnChat = document.querySelector(".inner-message-svg");
 const talkBtn = document.querySelector(".js-user-talt-btn");
 const sendBtn = document.querySelector(".js-user-send-btn");
 
-chat.insertAdjacentHTML("beforeend", requestUser("Hello"));
-chat.insertAdjacentHTML("beforeend", answerIA("Hello"));
+let userMessageInput = "";
 
-chat.insertAdjacentHTML("beforeend", requestUser("Hello"));
-chat.insertAdjacentHTML("beforeend", answerIA("Hello"));
+const userInputValue = (e) => {
+  if (e.target.value === "") {
+    sendBtn.disabled = true;
+    sendBtn.style.cursor = "not-allowed";
+  }
+  userMessageInput = e.target.value.trim();
+};
+form.addEventListener("input", userInputValue);
 
-chat.insertAdjacentHTML("beforeend", requestUser("Hello"));
-chat.insertAdjacentHTML("beforeend", answerIA("Hello"));
-// talk
-const talkUserMessage = () => {};
+const consoless = (e) => {
+  e.preventDefault();
 
-talkBtn.addEventListener("click", talkUserMessage);
+  const btn = e.target.closest("button");
+
+  if (btn) {
+    if (btn.classList.contains("js-user-send-btn")) {
+      inp.value = "";
+      chat.insertAdjacentHTML("beforeend", answer("user", userMessageInput));
+    }
+
+    if (btn.classList.contains("js-user-talt-btn")) {
+      console.log("Talk button clicked");
+    }
+  }
+};
+divElBtnForm.addEventListener("click", consoless);
+
+// logic btn voice
+// const speechRecognizer = new webkitSpeechRecognition();
+// const speechSynthesis = window.speechSynthesis;
+
+// const speechUserMessage = () => {
+//   speechRecognizer.start();
+// };
+
+// speechRecognizer.onresult = (e) => {
+//   requestUser(e.results[0][0].transcript);
+//   postRequest();
+// };
+
+// let request = axios.create({
+//   headers: {
+//     Authorization: `Bearer ${apiKey}`,
+//   },
+// });
+
+// const postRequest = () => {
+//   const messages = { role: "user", content: "Hello!" };
+
+//   const params = {
+//     model: "gpt-3.5-turbo",
+//     messages: messages,
+//   };
+//   request
+//     .post("https://api.openai.com/v1/chat/completions", params)
+//     .then((res) => {
+//       if (!res.ok) {
+//         throw new Error(res.status);
+//       }
+//       return res;
+//     })
+//     .then((data) => {
+//       console.log(data.choices[0].message.content);
+//       chat.insertAdjacentHTML(
+//         "beforeend",
+//         answerIA(data.choices[0].message.content)
+//       );
+//     })
+//     .catch((err) => {
+//       console.log(err);
+//     });
+// };
+
+// talkBtn.addEventListener("click", speechUserMessage);

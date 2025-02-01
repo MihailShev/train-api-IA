@@ -11,13 +11,13 @@
       href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100..900&display=swap"
       rel="stylesheet"
     />
-    <script defer type="module" src="/src/js/main.js"></script>
+    <script defer type="module" src="./js/main.js"></script>
     <link rel="stylesheet" href="./css/communicat-IA.css" />
   </head>
   <body>
     <header>
       <button class="go-back" type="button">
-        <a href="/index.html">Go-back</a>
+        <a href="./index.html">Go-back</a>
       </button>
     </header>
     <main>
@@ -25,37 +25,45 @@
         <div class="message-user">
           <b>User</b>
 
-          <p>Lorem ipsum dolor sit amet.</p>
+          <p>Hello</p>
 
-          <div class="inner-message-svg">
-            <svg class="" width="15" height="15">
-              <use href="./icons.svg#icon-paste"></use>
-            </svg>
+          <div class="inner-message-svg-user">
+            <button class="btn-copy" type="button">
+              <svg class="" width="15" height="15">
+                <use href="./icons.svg#icon-paste"></use>
+              </svg>
+            </button>
 
-            <svg class="" width="15" height="15">
-              <use href="./icons.svg#icon-volume"></use>
-            </svg>
+            <button class="btn-speech" type="button">
+              <svg class="" width="15" height="15">
+                <use href="./icons.svg#icon-volume"></use>
+              </svg>
+            </button>
           </div>
 
           <tt class="time-user">13:46</tt>
         </div>
 
-        <div class="message-ia">
-          <b>IA</b>
+        <div class="message-ai">
+          <b>ai</b>
 
           <p>
             Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sit,
             explicabo.
           </p>
 
-          <div class="inner-message-svg">
-            <svg class="" width="15" height="15">
-              <use href="./icons.svg#icon-paste"></use>
-            </svg>
+          <div class="inner-message-svg-ai">
+            <button class="btn-copy" type="button">
+              <svg class="" width="15" height="15">
+                <use href="./icons.svg#icon-paste"></use>
+              </svg>
+            </button>
 
-            <svg class="" width="15" height="15">
-              <use href="./icons.svg#icon-volume"></use>
-            </svg>
+            <button class="btn-speech" type="button">
+              <svg class="" width="15" height="15">
+                <use href="./icons.svg#icon-volume"></use>
+              </svg>
+            </button>
           </div>
 
           <tt class="time-ia">13:47</tt>
@@ -67,19 +75,21 @@
             type="text"
             name="user-message"
           />
+        </form>
 
-          <button class="user-talt-btn js-user-talt-btn" type="button">
-            <svg class="" width="15" height="15">
+        <div class="inner-form-svg">
+          <button class="user-talk-btn js-user-talt-btn" type="button">
+            <svg class="icon-mic" width="15" height="15">
               <use href="./icons.svg#icon-mic"></use>
             </svg>
           </button>
 
-          <button class="user-send-btn js-user-send-btn" type="submit">
-            <svg class="" width="15" height="15">
-              <use href="/src/img/icons.svg#icon-send"></use>
+          <button class="user-send-btn js-user-send-btn" type="submit" disabled>
+            <svg class="icon-send" width="15" height="15">
+              <use href="./icons.svg#icon-send"></use>
             </svg>
           </button>
-        </form>
+        </div>
       </div>
     </main>
     <!-- axios -->
