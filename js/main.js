@@ -5,15 +5,14 @@ import {
   copyToText,
 } from "./exports-functions.js";
 
+const scriptTag = document.getElementById("config");
+const API_KEY = scriptTag.dataset.apiKey;
+const API_URL = scriptTag.dataset.apiUrl;
 const chat = document.querySelector(".chat-container");
 const inp = document.querySelector(".js-user-message-inp");
 const divElBtnForm = document.querySelector(".inner-form-svg");
 const divElBtnChat = document.querySelector(".inner-message-svg");
-const talkBtn = document.querySelector(".js-user-talt-btn");
 const sendBtn = document.querySelector(".js-user-send-btn");
-const spechBtn = document.querySelector(".btn-speech");
-const copyBtn = document.querySelector(".btn-copy");
-const messageText = document.querySelector(".message-text");
 
 let userMessageInput = "";
 
@@ -35,7 +34,8 @@ const handlerBtnSendTalk = (e) => {
   // Btn Send
   if (btn.classList.contains("js-user-send-btn")) {
     if (userMessageInput !== "") {
-      chat.insertAdjacentHTML("beforeend", requesr("user", userMessageInput));
+      chat.insertAdjacentHTML("beforeend", requesr(userMessageInput));
+      sendMessageToChatGPT(userMessageInput);
       inp.value = "";
       userMessageInput = "";
       buttonState();
@@ -77,49 +77,44 @@ divElBtnChat.addEventListener("click", talkCopyEvent);
 const SpeechRecognition =
   window.SpeechRecognition || window.webkitSpeechRecognition;
 const speechRecognizer = new SpeechRecognition();
-
-// Lang
-speechRecognizer.lang = "ru";
 speechRecognizer.interimResults = false;
+// Lang Set It Up For Yourself
+speechRecognizer.lang = "ru";
 
-const startSpeechRecognition = () => {
-  speechRecognizer.start();
-};
+// Start Talk
+const startSpeechRecognition = () => speechRecognizer.start();
 
+// Add Chat Message Talk
 speechRecognizer.onresult = (e) => {
-  console.log(e);
   const recognizedText = e.results[0][0].transcript;
-  console.log(recognizedText);
-  chat.insertAdjacentHTML("beforeend", requesr("user", recognizedText));
+  chat.insertAdjacentHTML("beforeend", requesr(recognizedText));
+  sendMessageToChatGPT(recognizedText);
 };
 
-const apiKey = "";
-
-//
-
+// Request API
 const sendMessageToChatGPT = async (userMessage) => {
   try {
     const res = await axios.post(
-      "https://api.deepinfra.com/v1/openai/chat/completions",
+      `${API_URL}`,
       {
         model: "mistralai/Mistral-7B-Instruct-v0.1",
         messages: [{ role: "user", content: userMessage }],
       },
       {
         headers: {
-          Authorization: `Bearer ${apiKey}`,
+          Authorization: `Bearer ${API_KEY}`,
           "Content-Type": "application/json",
         },
       }
     );
 
-    console.log(res.data.choices[0].message.content);
-  } catch (error) {
-    console.error(
-      "Ошибка запроса:",
-      error.response ? error.response.data : error.message
+    chat.insertAdjacentHTML(
+      "beforeend",
+      answer(res.data.choices[0].message.content)
     );
+
+    return;
+  } catch (err) {
+    console.error(err.response ? err.response.data : err.message);
   }
 };
-
-sendMessageToChatGPT("Расскажи про себя одним предложением.");
