@@ -107,6 +107,11 @@ svg {
   border-radius: 4px;
 }
 
+.user-send-btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
 .user-message-inp {
   position: relative;
   width: 550px;
@@ -149,18 +154,6 @@ svg {
   bottom: 4px;
   right: 5px;
   background-color: blueviolet;
-}
-
-.inner-message-svg-user {
-  position: absolute;
-  bottom: -21px;
-  right: 10px;
-}
-
-.inner-message-svg-ai {
-  position: absolute;
-  bottom: -21px;
-  left: 10px;
 }
 
 .time-ai {
