@@ -29,7 +29,7 @@ export const answer = (text) =>
         </div>
 `;
 
-export const talkUserMessage = (text) => {
+export const talkMessage = (text) => {
   const textToTalk = new SpeechSynthesisUtterance(text);
   speechSynthesis.speak(textToTalk);
 };

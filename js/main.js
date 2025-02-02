@@ -1,7 +1,7 @@
 import {
   requesr,
   answer,
-  talkUserMessage,
+  talkMessage,
   copyToText,
 } from "./exports-functions.js";
 
@@ -18,71 +18,80 @@ const messageText = document.querySelector(".message-text");
 
 let userMessageInput = "";
 
-const buttonState = (e) => {
-  sendBtn.disabled = inp.value.trim() === "";
+// Inp Value And "btn:disabled"
+const buttonState = () => (sendBtn.disabled = inp.value.trim() === "");
+inp.addEventListener("input", () => {
   userMessageInput = inp.value.trim();
+  buttonState();
   return userMessageInput;
-};
-inp.addEventListener("input", buttonState);
+});
 
-const consoless = (e) => {
+// Btn Send And Talk
+const handlerBtnSendTalk = (e) => {
   e.preventDefault();
 
   const btn = e.target.closest("button");
+  if (!btn) return;
 
-  if (btn) {
-    if (btn.classList.contains("js-user-send-btn")) {
-      inp.value = "";
+  // Btn Send
+  if (btn.classList.contains("js-user-send-btn")) {
+    if (userMessageInput !== "") {
       chat.insertAdjacentHTML("beforeend", requesr("user", userMessageInput));
-
+      inp.value = "";
       userMessageInput = "";
-      sendBtn.disabled = inp.value.trim() === "";
-    }
-
-    if (btn.classList.contains("js-user-talt-btn")) {
-      console.log("Talk button clicked");
+      buttonState();
     }
   }
-};
-divElBtnForm.addEventListener("click", consoless);
 
+  // Btn Talk
+  if (btn.classList.contains("js-user-talt-btn")) {
+    startSpeechRecognition();
+  }
+};
+divElBtnForm.addEventListener("click", handlerBtnSendTalk);
+
+// Btn Chat "Cpoy" And "Speech"
 const talkCopyEvent = (e) => {
   const btn = e.target.closest("button");
-  if (btn) {
-    if (btn.classList.contains("btn-speech")) {
-      const spechengText = messageText.textContent;
-      talkUserMessage(spechengText);
-    }
+  if (!btn) return;
 
-    if (btn.classList.contains("btn-copy")) {
-      const copysText = messageText.textContent;
-      copyToText(copysText);
-    }
+  const messageElement = btn
+    .closest(".message-ai")
+    ?.querySelector(".message-text");
+  if (!messageElement) return;
+
+  const messageText = messageElement.textContent.trim();
+
+  // Btn Speech
+  if (btn.classList.contains("btn-speech")) {
+    talkMessage(messageText);
+  }
+
+  // Btn Copy
+  if (btn.classList.contains("btn-copy")) {
+    copyToText(messageText);
   }
 };
 divElBtnChat.addEventListener("click", talkCopyEvent);
 
-// const copyToClipboard = async (text) => {
-//   try {
-//     await navigator.clipboard.writeText(text);
-//     console.log("Text copy!");
-//   } catch (err) {
-//     console.error(err);
-//   }
-// };
+// Setting Spech Lang
+const SpeechRecognition =
+  window.SpeechRecognition || window.webkitSpeechRecognition;
+const speechRecognizer = new SpeechRecognition();
 
-// logic btn voice
-// const speechRecognizer = new webkitSpeechRecognition();
-// const speechSynthesis = window.speechSynthesis;
+// Lang
+speechRecognizer.lang = "ru";
+speechRecognizer.interimResults = false;
 
-// const speechUserMessage = () => {
-//   speechRecognizer.start();
-// };
+const startSpeechRecognition = () => {
+  speechRecognizer.start();
+};
 
-// speechRecognizer.onresult = (e) => {
-//   requestUser(e.results[0][0].transcript);
-//   postRequest();
-// };
+speechRecognizer.onresult = (e) => {
+  const recognizedText = e.results[0][0].transcript;
+  console.log(recognizedText);
+  chat.insertAdjacentHTML("beforeend", requesr("user", recognizedText));
+};
 
 // let request = axios.create({
 //   headers: {
@@ -109,7 +118,7 @@ divElBtnChat.addEventListener("click", talkCopyEvent);
 //       console.log(data.choices[0].message.content);
 //       chat.insertAdjacentHTML(
 //         "beforeend",
-//         answerIA(data.choices[0].message.content)
+//         answer(data.choices[0].message.content)
 //       );
 //     })
 //     .catch((err) => {
