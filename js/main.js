@@ -8,7 +8,7 @@ import {
 const scriptTag = document.getElementById("config");
 const API_KEY = scriptTag.dataset.apiKey;
 const API_URL = scriptTag.dataset.apiUrl;
-const chat = document.querySelector(".chat-container");
+const chat = document.querySelector(".message-container");
 const inp = document.querySelector(".js-user-message-inp");
 const divElBtnForm = document.querySelector(".inner-form-svg");
 const divElBtnChat = document.querySelector(".inner-message-svg");
@@ -35,6 +35,7 @@ const handlerBtnSendTalk = (e) => {
   if (btn.classList.contains("js-user-send-btn")) {
     if (userMessageInput !== "") {
       chat.insertAdjacentHTML("beforeend", requesr(userMessageInput));
+      chat.scrollTop = chat.scrollHeight;
       sendMessageToChatGPT(userMessageInput);
       inp.value = "";
       userMessageInput = "";
@@ -71,7 +72,7 @@ const talkCopyEvent = (e) => {
     copyToText(messageText);
   }
 };
-divElBtnChat.addEventListener("click", talkCopyEvent);
+chat.addEventListener("click", talkCopyEvent);
 
 // Setting Spech Lang
 const SpeechRecognition =
@@ -88,6 +89,7 @@ const startSpeechRecognition = () => speechRecognizer.start();
 speechRecognizer.onresult = (e) => {
   const recognizedText = e.results[0][0].transcript;
   chat.insertAdjacentHTML("beforeend", requesr(recognizedText));
+  chat.scrollTop = chat.scrollHeight;
   sendMessageToChatGPT(recognizedText);
 };
 
@@ -112,6 +114,7 @@ const sendMessageToChatGPT = async (userMessage) => {
       "beforeend",
       answer(res.data.choices[0].message.content)
     );
+    chat.scrollTop = chat.scrollHeight;
 
     return;
   } catch (err) {

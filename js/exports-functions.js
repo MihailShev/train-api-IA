@@ -8,7 +8,7 @@ const getTime = () => {
 export const requesr = (text) =>
   `
        <div class="message-user">
-          <b>user</b>
+          <b>User</b>
 
           <p class="message-text">
           ${text}
