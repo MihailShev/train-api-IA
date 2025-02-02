@@ -87,73 +87,39 @@ const startSpeechRecognition = () => {
 };
 
 speechRecognizer.onresult = (e) => {
+  console.log(e);
   const recognizedText = e.results[0][0].transcript;
   console.log(recognizedText);
   chat.insertAdjacentHTML("beforeend", requesr("user", recognizedText));
 };
 
-// const apiUrl = "https://api.openai.com/v1/chat/completions";
-// const apiKey =
-//   "";
+const apiKey = "";
 
-// // Функция для отправки запроса
-// const sendMessageToChatGPT = async (userMessage) => {
-//   try {
-//     const response = await axios.post(
-//       apiUrl,
-//       {
-//         model: "gpt-3.5-turbo",
-//         messages: [{ role: "user", content: userMessage }],
-//         temperature: 0.7,
-//       },
-//       {
-//         headers: {
-//           "Content-Type": "application/json",
-//           Authorization: `Bearer ${apiKey}`,
-//         },
-//       }
-//     );
+//
 
-//     console.log(response);
-//     const botMessage = response.data.choices[0].message.content;
-//     console.log("ChatGPT:", botMessage);
-//     return botMessage;
-//   } catch (error) {
-//     console.error("Ошибка при запросе к OpenAI:", error.message);
-//   }
-// };
+const sendMessageToChatGPT = async (userMessage) => {
+  try {
+    const res = await axios.post(
+      "https://api.deepinfra.com/v1/openai/chat/completions",
+      {
+        model: "mistralai/Mistral-7B-Instruct-v0.1",
+        messages: [{ role: "user", content: userMessage }],
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${apiKey}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
 
-// let request = axios.create({
-//   headers: {
-//     Authorization: `Bearer ${apiKey}`,
-//   },
-// });
+    console.log(res.data.choices[0].message.content);
+  } catch (error) {
+    console.error(
+      "Ошибка запроса:",
+      error.response ? error.response.data : error.message
+    );
+  }
+};
 
-// const postRequest = () => {
-//   const messages = { role: "user", content: "Hello!" };
-
-//   const params = {
-//     model: "gpt-3.5-turbo",
-//     messages: messages,
-//   };
-//   request
-//     .post("https://api.openai.com/v1/chat/completions", params)
-//     .then((res) => {
-//       if (!res.ok) {
-//         throw new Error(res.status);
-//       }
-//       return res;
-//     })
-//     .then((data) => {
-//       console.log(data.choices[0].message.content);
-//       chat.insertAdjacentHTML(
-//         "beforeend",
-//         answer(data.choices[0].message.content)
-//       );
-//     })
-//     .catch((err) => {
-//       console.log(err);
-//     });
-// };
-
-// talkBtn.addEventListener("click", speechUserMessage);
+sendMessageToChatGPT("Расскажи про себя одним предложением.");
