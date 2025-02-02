@@ -5,7 +5,6 @@ import {
   copyToText,
 } from "./exports-functions.js";
 
-const apiKey = "";
 const chat = document.querySelector(".chat-container");
 const inp = document.querySelector(".js-user-message-inp");
 const divElBtnForm = document.querySelector(".inner-form-svg");
@@ -92,6 +91,37 @@ speechRecognizer.onresult = (e) => {
   console.log(recognizedText);
   chat.insertAdjacentHTML("beforeend", requesr("user", recognizedText));
 };
+
+// const apiUrl = "https://api.openai.com/v1/chat/completions";
+// const apiKey =
+//   "";
+
+// // Функция для отправки запроса
+// const sendMessageToChatGPT = async (userMessage) => {
+//   try {
+//     const response = await axios.post(
+//       apiUrl,
+//       {
+//         model: "gpt-3.5-turbo",
+//         messages: [{ role: "user", content: userMessage }],
+//         temperature: 0.7,
+//       },
+//       {
+//         headers: {
+//           "Content-Type": "application/json",
+//           Authorization: `Bearer ${apiKey}`,
+//         },
+//       }
+//     );
+
+//     console.log(response);
+//     const botMessage = response.data.choices[0].message.content;
+//     console.log("ChatGPT:", botMessage);
+//     return botMessage;
+//   } catch (error) {
+//     console.error("Ошибка при запросе к OpenAI:", error.message);
+//   }
+// };
 
 // let request = axios.create({
 //   headers: {
