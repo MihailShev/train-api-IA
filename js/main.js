@@ -11,9 +11,9 @@ const API_URL = scriptTag.dataset.apiUrl;
 const chat = document.querySelector(".message-container");
 const inp = document.querySelector(".js-user-message-inp");
 const divElBtnForm = document.querySelector(".inner-form-svg");
-const divElBtnChat = document.querySelector(".inner-message-svg");
 const sendBtn = document.querySelector(".js-user-send-btn");
 
+// Value Prompt
 let userMessageInput = "";
 
 // Inp Value And "btn:disabled"
